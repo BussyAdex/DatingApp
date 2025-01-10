@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-public class AccountController(DataContent context, ITokenService tokenService, 
+public class AccountController(DataContext context, ITokenService tokenService, 
     IMapper mapper) : BaseApiController
 {
     [HttpPost("register")]  

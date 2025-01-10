@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
 
-public class DataContent(DbContextOptions options) : DbContext(options)
+public class DataContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<AppUser> Users { get; set; }
     public DbSet<UserLike> Likes { get; set; }
+    public DbSet<Message> Messages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -26,6 +27,16 @@ public class DataContent(DbContextOptions options) : DbContext(options)
             .WithMany(l => l.LikedByUsers)
             .HasForeignKey(s => s.TargetUserId)
             .OnDelete(DeleteBehavior.Cascade); //for SQL server use .NoAction
+
+        builder.Entity<Message>()
+            .HasOne(x => x.Recipient)
+            .WithMany(x => x.MessagesRecieved)
+            .OnDelete(DeleteBehavior.Restrict); 
+
+        builder.Entity<Message>()
+            .HasOne(x => x.Sender)
+            .WithMany(x => x.MessagesSent)
+            .OnDelete(DeleteBehavior.Restrict);  
 
     }
 }

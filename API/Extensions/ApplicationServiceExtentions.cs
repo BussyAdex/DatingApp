@@ -13,7 +13,7 @@ public static class ApplicationServiceExtentions
         IConfiguration config)
     {
         services.AddControllers();
-        services.AddDbContext<DataContent>(opt =>
+        services.AddDbContext<DataContext>(opt =>
         {
             opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
@@ -21,6 +21,7 @@ public static class ApplicationServiceExtentions
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ILikesRepository, LikesRepository>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
         services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<LogUserActivity>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
