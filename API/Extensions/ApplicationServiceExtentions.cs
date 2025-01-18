@@ -3,6 +3,7 @@ using API.Data.Repository;
 using API.Helpers;
 using API.interfaces;
 using API.Services;
+using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions;
@@ -17,6 +18,7 @@ public static class ApplicationServiceExtentions
         {
             opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
+        
         services.AddCors();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserRepository, UserRepository>();
@@ -26,6 +28,8 @@ public static class ApplicationServiceExtentions
         services.AddScoped<LogUserActivity>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.Configure<CloudinarySettings>(config.GetSection("cloudinarySettings"));
+        services.AddSignalR();
+        services.AddSingleton<PresenceTracker>();
 
         return services;
     }
