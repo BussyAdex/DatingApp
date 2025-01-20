@@ -51,7 +51,12 @@
                     placeholder="Send a private message">
             </div>
             <div class="input-group-append">
-                <button [disabled]="!messageForm.valid" class="btn btn-primary" type="submit">Send</button>
+                <button [disabled]="!messageForm.valid" class="btn btn-primary" type="submit">
+                    Send
+                    @if (loading) {
+                        <i class="fa fa-spinner fa-spin"></i>
+                    }
+                </button>
             </div>
         </form>
     </div>
